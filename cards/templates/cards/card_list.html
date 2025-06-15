@@ -1,0 +1,33 @@
+{% extends 'cards/base.html' %}
+
+{% block content %}
+<h1>Список карточек</h1>
+<a href="{% url 'add_card' %}" class="btn btn-primary mb-3">Добавить карточку</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Слово</th>
+            <th>Перевод</th>
+            <th>Изображение</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for card in cards %}
+        <tr>
+            <td>{{ card.word }}</td>
+            <td>{{ card.translation }}</td>
+            <td>
+                {% if card.image %}
+                <img src="{{ card.image.url }}" height="50" alt="{{ card.word }}">
+                {% endif %}
+            </td>
+            <td>
+                <a href="{% url 'edit_card' card.pk %}" class="btn btn-sm btn-warning">Редактировать</a>
+                <a href="{% url 'delete_card' card.pk %}" class="btn btn-sm btn-danger">Удалить</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
