@@ -2,28 +2,24 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block title %}WordTrainer{% endblock %}</title>
+    <title>WordTrainer</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-            <a class="navbar-brand" href="{% url 'home' %}">WordTrainer</a>
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav">
-                    <li class="nav-item"><a class="nav-link" href="{% url 'card_list' %}">Карточки</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'add_card' %}">Добавить</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'train' %}">Тренировка</a></li>
-                </ul>
-            </div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">WordTrainer</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item"><a class="nav-link" href="/cards/">Карточки</a></li>
+                <li class="nav-item"><a class="nav-link" href="/cards/add/">Добавить</a></li>
+                <li class="nav-item"><a class="nav-link" href="/cards/train/">Тренировка</a></li>
+            </ul>
         </div>
-    </nav>
-
-    <div class="container mt-4">
-        {% block content %}{% endblock %}
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</nav>
+<div class="container">
+    {% block content %}{% endblock %}
+</div>
 </body>
 </html>

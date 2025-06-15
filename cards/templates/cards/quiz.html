@@ -1,0 +1,21 @@
+{% extends 'cards/base.html' %}
+{% block content %}
+<h2>Тренировка</h2>
+{% if card %}
+    <form method="post">
+        {% csrf_token %}
+        <p><strong>Слово:</strong> {{ card.word }}</p>
+        <input type="hidden" name="correct" value="{{ card.translation }}">
+        <div class="mb-3">
+            <label for="answer">Перевод:</label>
+            <input type="text" class="form-control" name="answer" required>
+        </div>
+        <button type="submit" class="btn btn-success">Проверить</button>
+    </form>
+    {% if message %}
+        <div class="alert alert-info mt-3">{{ message }}</div>
+    {% endif %}
+{% else %}
+    <p>Нет карточек для тренировки.</p>
+{% endif %}
+{% endblock %}

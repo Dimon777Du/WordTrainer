@@ -3,3 +3,10 @@ venv/
 __pycache__/
 db.sqlite3
 media/
+venv/
+db.sqlite3
+media/
+__pycache__/
+*.pyc
+.vscode/
+.DS_Store
