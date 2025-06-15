@@ -22,32 +22,32 @@ python manage.py runserver
 WordTrainer - Процесс создания проекта
 Ниже представлен пошаговый процесс создания проекта WordTrainer с необходимыми командами и кодом:
 
-1. Подготовка среды и создание проекта
+## 1. Подготовка среды и создание проекта
 bash
-# Создание директории проекта
+### Создание директории проекта
 mkdir WordTrainer
 cd WordTrainer
 
-# Создание виртуального окружения
+### Создание виртуального окружения
 python3 -m venv venv
 
-# Активация окружения (Linux/macOS)
+### Активация окружения (Linux/macOS)
 source venv/bin/activate
 
-# Активация окружения (Windows)
+### Активация окружения (Windows)
 venv\Scripts\activate.bat
 
-# Установка зависимостей
+### Установка зависимостей
 pip install django pillow
 
-# Создание Django проекта
+### Создание Django проекта
 django-admin startproject wordtrainer .
-2. Создание приложения cards
+## 2. Создание приложения cards
 bash
 python manage.py startapp cards
-3. Настройка проекта (wordtrainer/settings.py)
+## 3. Настройка проекта (wordtrainer/settings.py)
 python
-# Добавьте в INSTALLED_APPS:
+### Добавьте в INSTALLED_APPS:
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -58,12 +58,12 @@ INSTALLED_APPS = [
     'cards',  # Добавлено приложение cards
 ]
 
-# В конец файла добавьте:
+### В конец файла добавьте:
 import os  # Добавьте эту строку в начало файла
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-4. Создание модели Card (cards/models.py)
+## 4. Создание модели Card (cards/models.py)
 python
 from django.db import models
 
@@ -79,7 +79,7 @@ class Card(models.Model):
 
     def __str__(self):
         return self.word
-5. Создание форм (cards/forms.py)
+## 5. Создание форм (cards/forms.py)
 python
 from django import forms
 from .models import Card
@@ -105,7 +105,7 @@ class CardForm(forms.ModelForm):
         if not translation:
             raise forms.ValidationError("Поле 'перевод' не может быть пустым")
         return translation
-6. Создание представлений (cards/views.py)
+## 6. Создание представлений (cards/views.py)
 python
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Card
@@ -167,7 +167,7 @@ def train(request):
         'card': card,
         'message': message
     })
-7. Настройка URL-адресов
+## 7. Настройка URL-адресов
 Создайте cards/urls.py:
 
 python
@@ -182,7 +182,7 @@ urlpatterns = [
     path('cards/<int:pk>/delete/', views.delete_card, name='delete_card'),
     path('cards/train/', views.train, name='train'),
 ]
-Обновите wordtrainer/urls.py:
+### Обновите wordtrainer/urls.py:
 
 python
 from django.contrib import admin
@@ -194,8 +194,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('cards.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-8. Создание шаблонов
-Создайте структуру папок:
+## 8. Создание шаблонов
+### Создайте структуру папок:
 
 text
 cards/
@@ -207,7 +207,7 @@ cards/
         ├── card_form.html
         ├── delete_confirm.html
         └── quiz.html
-cards/templates/cards/base.html:
+### cards/templates/cards/base.html:
 
 html
 <!DOCTYPE html>
@@ -239,7 +239,7 @@ html
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-cards/templates/cards/home.html:
+### cards/templates/cards/home.html:
 
 html
 {% extends 'cards/base.html' %}
@@ -254,7 +254,7 @@ html
     <a class="btn btn-success btn-lg" href="{% url 'train' %}" role="button">Начать тренировку</a>
 </div>
 {% endblock %}
-cards/templates/cards/card_list.html:
+### cards/templates/cards/card_list.html:
 
 html
 {% extends 'cards/base.html' %}
@@ -290,7 +290,7 @@ html
     </tbody>
 </table>
 {% endblock %}
-cards/templates/cards/card_form.html:
+### cards/templates/cards/card_form.html:
 
 html
 {% extends 'cards/base.html' %}
@@ -304,7 +304,7 @@ html
     <a href="{% url 'card_list' %}" class="btn btn-secondary">Отмена</a>
 </form>
 {% endblock %}
-cards/templates/cards/delete_confirm.html:
+### cards/templates/cards/delete_confirm.html:
 
 html
 {% extends 'cards/base.html' %}
@@ -318,7 +318,7 @@ html
     <a href="{% url 'card_list' %}" class="btn btn-secondary">Отмена</a>
 </form>
 {% endblock %}
-cards/templates/cards/quiz.html:
+### cards/templates/cards/quiz.html:
 
 html
 {% extends 'cards/base.html' %}
@@ -351,15 +351,15 @@ html
     <div class="alert alert-warning">Нет карточек для тренировки. Пожалуйста, добавьте карточки.</div>
 {% endif %}
 {% endblock %}
-9. Запуск проекта
+## 9. Запуск проекта
 bash
-# Создание миграций
+### Создание миграций
 python manage.py makemigrations
 
-# Применение миграций
+### Применение миграций
 python manage.py migrate
 
-# Запуск сервера разработки
+### Запуск сервера разработки
 python manage.py runserver
 10. Тестирование приложения
 Откройте в браузере:
@@ -368,36 +368,8 @@ http://localhost:8000/cards/ - Список карточек
 http://localhost:8000/cards/add/ - Добавление карточки
 http://localhost:8000/cards/train/ - Тренировка
 
-11. Инициализация Git и настройка .gitignore
-bash
-# Инициализация репозитория
-git init
-
-# Создание .gitignore
-echo "venv/" > .gitignore
-echo "*.pyc" >> .gitignore
-echo "__pycache__/" >> .gitignore
-echo "db.sqlite3" >> .gitignore
-echo "media/" >> .gitignore
-echo ".DS_Store" >> .gitignore
-echo ".env" >> .gitignore
-echo "*.log" >> .gitignore
-
-# Создание requirements.txt
-pip freeze > requirements.txt
-
-# Добавление файлов в репозиторий
-git add .
-
-# Создание коммита
-git commit -m "Initial commit"
-12. Запуск приложения для проверки
-bash
-# Установка зависимостей
-pip install -r requirements.txt
-
-# Применение миграций
+### Применение миграций
 python manage.py migrate
 
-# Запуск сервера
+### Запуск сервера
 python manage.py runserver
